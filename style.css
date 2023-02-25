@@ -1,0 +1,186 @@
+body{
+  background-color: #ccd5ae;
+  width: 80%;
+  margin-left: 10%;
+}
+main,#cart {
+display: inline-block;
+padding: 10px;
+background-color: #e9edc9;
+min-width: 100%;
+}
+.left{
+  width: 150px;
+  float: left;
+  text-align: center;
+  height:100%;
+}
+.itemsCont{
+margin-left: 150px;
+}
+.mini-cont,select{
+  margin-top: 30px;
+  border-radius: 10px;
+  font-size: large;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.cont {
+  width: 280px;
+  height: 220px;
+  border-radius: 30px;
+  background-color: #fefae0;
+  padding: 20px;
+  float: left;
+  margin: 10px;
+}
+.cont-mini {
+  width: 157px;
+  height: 210px;
+  border-radius: 30px;
+  background-color: #fefae0;
+  padding: 10px;
+  float: left;
+  margin: 10px;
+  text-align: center;
+
+}
+#img {
+  width: 50%;
+  -webkit-box-sizing: border-box;
+  padding: 10px;
+  background-color: #faedcd;
+  border-radius: 20px;
+  float: left;
+}
+.checkoutBTN{
+  color: white;
+  font-size: 26px;
+  padding: 10px;
+  border-radius: 10px;
+  text-shadow: 4px 3px 6px rgba(30, 30, 30, 1);
+  background: #d4a373;
+  background: linear-gradient(180deg, #d4a373 80%, #d4a373 105%);
+  -webkit-box-shadow: 4px 5px 12px rgba(50, 50, 50, 0.8);
+  -moz-box-shadow: 4px 5px 12px rgba(50, 50, 50, 0.8);
+  box-shadow: 4px 5px 12px rgba(50, 50, 50, 0.8);
+  text-decoration: none;
+}
+.right {
+  width: 50%;
+  float: right;
+  text-align: center;
+  font-size: larger;
+  margin-top: -20px;
+}
+.basketbt {
+  border: 1px;
+  border-radius: 10px;
+  height: 25px;
+  color: white;
+  background-color: #d4a373;
+}
+input:disabled {
+  background-color: #d4a373 !important;
+  opacity: 0.3 !important;
+}
+
+
+
+/* search section */
+.searchBox {
+  float: right;
+  background-color: #d4a373;
+  border-radius: 40px;
+  transition: 0.4s;
+}
+.searchBox:hover{
+  background-color: #fefae0;
+}
+
+.searchBox:hover > .searchInput {
+  width: 240px;
+  padding: 0 6px;
+}
+
+.searchBox:hover > .searchButton {
+  background-color: #fefae0;
+}
+
+.searchButton {
+  float: right;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  border: none;
+  background-color: #d4a373;
+  border-radius: 40px;
+}
+
+.searchInput {
+  border:none;
+  background: none;
+  outline:none;
+  float:left;
+  padding: 0;
+  color: black;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0px;
+
+}
+.searchInput:not(:placeholder-shown) {
+  width: 240px;
+  padding: 0 6px;
+  background-color: #fefae0;
+  border-radius: 40px;
+  
+}
+/* checkout Form */
+.input-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.input-container>label {
+  position: relative;
+  top: 35px;
+  left: 20px;
+  padding: 0px 10px 0px 10px;
+  text-align: left;
+  font-size: large;
+  user-select: none;
+  background: #fefae0;
+  white-space: nowrap;
+  width: fit-content;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.input-container>input {
+  display: block;
+  width: 100%;
+  height: 50px;
+  text-align: left;
+  font-size: large;
+  line-height: 1.42857143;
+  background-color: #fefae0;
+  border: 1px solid #c4c7c8;
+  box-shadow: none;
+  padding-left: 30px;
+
+}
+
+/* Line for moving lablel when input is clicked or there is something typed in it */
+.input-container>input:focus+label,
+.input-container>input:not(:placeholder-shown)~label {
+  transform: scale(0.95) translateY(-27px) !important;
+  left: 5px;
+  color: #d4a373;
+  border-radius: 10px;
+  transition: 0.4s;
+}

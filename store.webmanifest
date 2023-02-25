@@ -1,0 +1,20 @@
+{
+    "name": "My Lesson Store",
+    "short_name": "LessonStore",
+    "description": "My online lessons store",
+    "icons": [
+    {
+    "src": "img/math.png",
+    "sizes": "256x256",
+    "type": "image/png"
+    },
+    {
+    "src": "img/plant.png",
+    "sizes": "512x512",
+    "type": "image/png"
+    }
+    ],
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_color": "#260bca"
+}
