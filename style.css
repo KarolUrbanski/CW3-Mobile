@@ -203,7 +203,7 @@ input:disabled {
 
 }
 
-/* Line for moving lablel when input is clicked or there is something typed in it  */
+/* Line for moving lablel when input is clicked or there is something typed in it */
 .input-container>input:focus+label,
 .input-container>input:not(:placeholder-shown)~label {
   transform: scale(0.95) translateY(-27px) !important;
