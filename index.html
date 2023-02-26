@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CW1 - group work</title>
+  <title>CW3 - group work</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/72d85604c0.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
@@ -56,7 +56,7 @@
             <div class="right">
               <h3>{{item.name}}</h3>
               <p>{{item.location}}</p>
-              <p>Price: {{item.price}}</p>
+              <p>Price: £{{item.price}}</p>
               <!-- Check for spaces in subjec=t -->
               <p v-if="item.spaces <= 0">No more spaces!</p>
               <p v-else-if="item.spaces <= 5">Only {{item.spaces}} spaces!</p>
@@ -83,7 +83,7 @@
         <div v-for="item in subjects" v-if="order.subjecs.includes(item.id)" class="cont-mini">
           <h3>{{item.name}} <i v-bind:class="item.iconSRC"></i></h3>
           <p>{{item.location}}</p>
-          <p>Price: {{item.price}}</p>
+          <p>Price: £{{item.price}}</p>
           <p>Quantity: {{subjecsCount(item.id)}}</p>
           <input class="basketbt" type="button" value="Remove" v-on:click="remove(item)" />
         </div>
@@ -180,7 +180,7 @@
             //show alert of order + restart values of checkout and order to 
             swal({
               title: "Order placed!",
-              text: "Name: " + this.checkout.name + " Phone: " + this.checkout.phone + " Total Price:" + this
+              text: "Name: " + this.checkout.name + " Phone: " + this.checkout.phone + " Total Price: £" + this
                 .totalPrice,
               icon: "success",
               button: "Done",
