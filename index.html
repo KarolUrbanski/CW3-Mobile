@@ -26,42 +26,46 @@
     </h1>
     <main>
       <!-- sorting section-->
-      <div class="left">
-        <h3>Sort by:</h3>
-        <select v-model="attribute">
-          <option value="name">Name</option>
-          <option value="location">location</option>
-          <option value="price">price</option>
-          <option value="spaces">availability</option>
-        </select>
+      <div class="left-container">
+        <div class="left">
+          <h3>Sort by:</h3>
+          <select v-model="attribute">
+            <option value="name">Name</option>
+            <option value="location">location</option>
+            <option value="price">price</option>
+            <option value="spaces">availability</option>
+          </select>
 
-        <div class="mini-cont">
-          <label for="asc">Ascending</label>
-          <input type="radio" id="asc" value="1" v-model="sortingOrder" />
-        </div>
-        <div class="mini-cont">
-          <label for="dsc">Descending</label>
-          <input type="radio" id="dsc" value="-1" v-model="sortingOrder" />
+          <div class="mini-cont">
+            <label for="asc">Ascending</label>
+            <input type="radio" id="asc" value="1" v-model="sortingOrder" />
+          </div>
+          <div class="mini-cont">
+            <label for="dsc">Descending</label>
+            <input type="radio" id="dsc" value="-1" v-model="sortingOrder" />
+          </div>
         </div>
       </div>
 
       <!-- subjects/products section-->
-      <div class="itemsCont" id="itemCont">
-        <h1 id="search-out" style="display:none">No subjects found :( </h1>
-        <div v-for="item in sortedArray" class="cont">
-          <img id="img" v-bind:src="item.imgSRC" v-bind:alt="item.imgALT" />
-          <div class="right">
-            <h3>{{item.name}}</h3>
-            <p>{{item.location}}</p>
-            <p>Price: {{item.price}}</p>
-            <!-- Check for spaces in subjec=t -->
-            <p v-if="item.spaces <= 0">No more spaces!</p>
-            <p v-else-if="item.spaces <= 5">Only {{item.spaces}} spaces!</p>
-            <p v-else=>Spaces: {{item.spaces}}</p>
+      <div class="items-container">
+        <div class="itemsCont" id="itemCont">
+          <h1 id="search-out" style="display:none">No subjects found :( </h1>
+          <div v-for="item in sortedArray" class="cont">
+            <img id="img" v-bind:src="item.imgSRC" v-bind:alt="item.imgALT" />
+            <div class="right">
+              <h3>{{item.name}}</h3>
+              <p>{{item.location}}</p>
+              <p>Price: {{item.price}}</p>
+              <!-- Check for spaces in subjec=t -->
+              <p v-if="item.spaces <= 0">No more spaces!</p>
+              <p v-else-if="item.spaces <= 5">Only {{item.spaces}} spaces!</p>
+              <p v-else=>Spaces: {{item.spaces}}</p>
 
-            <input class="basketbt" type="button" value="Add to Basket" v-on:click="toBasket(item)"
-              v-if="canAddToCart(item)" />
-            <input class="basketbt" type="button" value="Add to Basket" disabled="disabled" v-else />
+              <input class="basketbt" type="button" value="Add to Basket" v-on:click="toBasket(item)"
+                v-if="canAddToCart(item)" />
+              <input class="basketbt" type="button" value="Add to Basket" disabled="disabled" v-else />
+            </div>
           </div>
         </div>
       </div>
@@ -107,174 +111,174 @@
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
     let app = new Vue({
-          // the root Vue instance
-          el: "#app", // this links to the <div> with the ID #app
+      // the root Vue instance
+      el: "#app", // this links to the <div> with the ID #app
 
-          data: {
-            //read all the subjets from subjets file
-            subjects: allSubjects,
+      data: {
+        //read all the subjets from subjets file
+        subjects: allSubjects,
 
-            //counting cart and collecting subjets id's
-            order: {
-              count: 0,
-              subjecs: [],
-            },
-            //sorting atributes/default values
-            attribute: 'name',
-            sortingOrder: 1,
+        //counting cart and collecting subjets id's
+        order: {
+          count: 0,
+          subjecs: [],
+        },
+        //sorting atributes/default values
+        attribute: 'name',
+        sortingOrder: 1,
 
-            //search
-            searchString: '',
+        //search
+        searchString: '',
 
-            //checkout
-            checkout: {
-              show: false,
-              name: '',
-              phone: '',
+        //checkout
+        checkout: {
+          show: false,
+          name: '',
+          phone: '',
+        }
+      },
+
+      methods: {
+        toBasket: function (subjec) {
+          //add subject to order array and scroll 
+          subjec.spaces -= 1;
+          this.order.subjecs.push(subjec.id);
+          this.order.count += 1;
+
+          setTimeout(() => {
+            window.scrollBy({
+              top: 800,
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 50);
+
+        },
+        remove: function (subjec) {
+          //for every element in order
+          for (var i = 0; i < this.order.subjecs.length; i++) {
+            //check for first id to remove
+            if (this.order.subjecs[i] == subjec.id) {
+              //remove subject/count add spaces and return to not remove all the same objects
+              this.order.subjecs.splice(i, 1);
+              this.order.count -= 1;
+              subjec.spaces += 1;
+              return
             }
-          },
-
-          methods: {
-            toBasket: function (subjec) {
-              //add subject to order array and scroll 
-              subjec.spaces -= 1;
-              this.order.subjecs.push(subjec.id);
-              this.order.count += 1;
-
-              setTimeout(() => {
-                window.scrollBy({
-                  top: 800,
-                  left: 0,
-                  behavior: 'smooth'
-                });
-              }, 50);
-
-            },
-            remove: function (subjec) {
-              //for every element in order
-              for (var i = 0; i < this.order.subjecs.length; i++) {
-                //check for first id to remove
-                if (this.order.subjecs[i] == subjec.id) {
-                  //remove subject/count add spaces and return to not remove all the same objects
-                  this.order.subjecs.splice(i, 1);
-                  this.order.count -= 1;
-                  subjec.spaces += 1;
-                  return
-                }
-              }
-            },
-            placeOrder: function () {
-              //check phone and name regex
-              const regexName = new RegExp("(?=.*[a-zA-z])");
-              const regexPhone = new RegExp("(?=.*[0-9])(?=.{8,})");
-              let feedback = document.getElementById('feedback');
-              feedback.innerHTML = "";
-              if (!regexPhone.test(this.checkout.phone) || !regexName.test(this.checkout.name)) {
-                feedback.innerHTML +=
-                  "<b>Wrong phone number or Wrong name</b><br> (Phone minimum length is 8, and its only numbers. Name should be only letters)";
-              } else {
-                //show alert of order + restart values of checkout and order to 
-                swal({
-                  title: "Order placed!",
-                  text: "Name: " + this.checkout.name + " Phone: " + this.checkout.phone + " Total Price:" + this
-                    .totalPrice,
-                  icon: "success",
-                  button: "Done",
-                });
-                this.checkout.show = false;
-                this.checkout.name = '';
-                this.checkout.phone = '';
-                this.order.count = 0;
-                this.order.subjecs = [];
-              }
-            },
-            //counting how many specific orders are in array
-            subjecsCount(id) {
-              let count = 0;
-              for (let i = 0; i < this.order.subjecs.length; i++) {
-                if (this.order.subjecs[i] === id) {
-                  count++;
-                }
-              }
-              return count;
-            },
-            canAddToCart(subjec) {
-              if (subjec.spaces < 1)
-                return false
-              else
-                return true
-            },
-            showCheckout: function () {
-              //shgow checkout section and scroll to it
-              this.checkout.show = true;
-
-              setTimeout(() => {
-                window.scrollBy({
-                  top: 300,
-                  left: 0,
-                  behavior: 'smooth'
-                });
-              }, 50);
+          }
+        },
+        placeOrder: function () {
+          //check phone and name regex
+          const regexName = new RegExp("(?=.*[a-zA-z])");
+          const regexPhone = new RegExp("(?=.*[0-9])(?=.{8,})");
+          let feedback = document.getElementById('feedback');
+          feedback.innerHTML = "";
+          if (!regexPhone.test(this.checkout.phone) || !regexName.test(this.checkout.name)) {
+            feedback.innerHTML +=
+              "<b>Wrong phone number or Wrong name</b><br> (Phone minimum length is 8, and its only numbers. Name should be only letters)";
+          } else {
+            //show alert of order + restart values of checkout and order to 
+            swal({
+              title: "Order placed!",
+              text: "Name: " + this.checkout.name + " Phone: " + this.checkout.phone + " Total Price:" + this
+                .totalPrice,
+              icon: "success",
+              button: "Done",
+            });
+            this.checkout.show = false;
+            this.checkout.name = '';
+            this.checkout.phone = '';
+            this.order.count = 0;
+            this.order.subjecs = [];
+          }
+        },
+        //counting how many specific orders are in array
+        subjecsCount(id) {
+          let count = 0;
+          for (let i = 0; i < this.order.subjecs.length; i++) {
+            if (this.order.subjecs[i] === id) {
+              count++;
             }
-          },
-          computed: {
-            sortedArray: function () {
-              //reset style of search output
-              document.getElementById('search-out').style.display = 'none';
-              // the comparison function with selected attribute
-              let sortArray = this.subjects.sort((a, b) => {
-                if (a[this.attribute] > b[this.attribute]) return 1;
-                if (a[this.attribute] < b[this.attribute]) return -1;
-                return 0;
-              });
+          }
+          return count;
+        },
+        canAddToCart(subjec) {
+          if (subjec.spaces < 1)
+            return false
+          else
+            return true
+        },
+        showCheckout: function () {
+          //shgow checkout section and scroll to it
+          this.checkout.show = true;
 
-              //check if sort order is descending if so reverse array
-              if (this.sortingOrder == -1)
-                sortArray.reverse()
+          setTimeout(() => {
+            window.scrollBy({
+              top: 300,
+              left: 0,
+              behavior: 'smooth'
+            });
+          }, 50);
+        }
+      },
+      computed: {
+        sortedArray: function () {
+          //reset style of search output
+          document.getElementById('search-out').style.display = 'none';
+          // the comparison function with selected attribute
+          let sortArray = this.subjects.sort((a, b) => {
+            if (a[this.attribute] > b[this.attribute]) return 1;
+            if (a[this.attribute] < b[this.attribute]) return -1;
+            return 0;
+          });
 
-              //return sorted array if no changes to search
-              if (!this.searchString) {
-                return sortArray;
-              } else {
-                //search string to lower case
-                searchString = this.searchString.toLowerCase();
+          //check if sort order is descending if so reverse array
+          if (this.sortingOrder == -1)
+            sortArray.reverse()
 
-                let searchArray = sortArray.filter((element) => {
-                  //check if search sting is a part of string in subject name/location
-                  if (element.name.toLowerCase().indexOf(searchString) != -1 ||
-                    element.location.toLowerCase().indexOf(searchString) != -1) {
-                    return element
-                  }
-                });
+          //return sorted array if no changes to search
+          if (!this.searchString) {
+            return sortArray;
+          } else {
+            //search string to lower case
+            searchString = this.searchString.toLowerCase();
 
-                if (Object.keys(searchArray).length == 0) //check if object if empty 
-                  document.getElementById('search-out').style.display = 'block';
-
-                else //output array of searched subjects
-                  return searchArray;
-
+            let searchArray = sortArray.filter((element) => {
+              //check if search sting is a part of string in subject name/location
+              if (element.name.toLowerCase().indexOf(searchString) != -1 ||
+                element.location.toLowerCase().indexOf(searchString) != -1) {
+                return element
               }
-            },
-            totalPrice: function () {
-              //calculate total price
-              let total = 0;
-              this.order.subjecs.forEach(id => {
-                this.subjects.forEach(subj => {
-                  if (id == subj.id) {
-                    total = total + subj.price;
-                  }
-                });
-              });
-              return total;
-            },
-          },
-          created: function () {
-            if ("serviceWorker" in navigator) {
-              navigator.serviceWorker.register("service-worker.js");
-            }
+            });
+
+            if (Object.keys(searchArray).length == 0) //check if object if empty 
+              document.getElementById('search-out').style.display = 'block';
+
+            else //output array of searched subjects
+              return searchArray;
 
           }
-        });
+        },
+        totalPrice: function () {
+          //calculate total price
+          let total = 0;
+          this.order.subjecs.forEach(id => {
+            this.subjects.forEach(subj => {
+              if (id == subj.id) {
+                total = total + subj.price;
+              }
+            });
+          });
+          return total;
+        },
+      },
+      created: function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.register("service-worker.js");
+        }
+
+      }
+    });
   </script>
 </body>
 
