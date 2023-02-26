@@ -215,6 +215,20 @@ input:disabled {
 
 @media (max-width: 1000px) {
 
+  .left {
+    font-size: 11px;
+  }
+
+  .left select {
+    font-size: 11px;
+    line-height: 11px;
+  }
+
+  .left label {
+    font-size: 11px;
+    line-height: 11px;
+  }
+
   .cont {
     width: 200px;
     height: 150px;
