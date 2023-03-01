@@ -215,33 +215,43 @@ input:disabled {
 
 @media (max-width: 1000px) {
 
-  .left {
-    font-size: 11px;
+  .left-container{
+    width: 100%;
   }
-
+  .left {
+    width: 100%;
+  }
+.itemsCont{
+  margin: 0;
+}
   .left select {
-    font-size: 11px;
-    line-height: 11px;
+    font-size: 14px;
+ 
   }
 
   .left label {
-    font-size: 11px;
-    line-height: 11px;
+    font-size: 18px;
+ 
   }
-
+.mini-cont,select{
+  margin-top: 10px;
+}
   .cont {
     width: 200px;
-    height: 150px;
+    height: 120px;
     border-radius: 30px;
     background-color: #fefae0;
     padding: 20px;
     float: right;
     margin: 10px;
-    font-size: 14px;
+    font-size: 12px;
     white-space: nowrap;
-    line-height: 14px;
+    line-height: 12px;
+    float: left;
   }
-
+.cont-mini{
+  margin-left: 80px;
+}
   #img {
     width: 45%;
     -webkit-box-sizing: border-box;
